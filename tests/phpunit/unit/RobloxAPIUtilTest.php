@@ -18,7 +18,7 @@
  * @file
  */
 
-namespace phpunit\unit;
+namespace MediaWiki\Extension\RobloxAPI\Tests;
 
 use MediaWiki\Extension\RobloxAPI\util\RobloxAPIException;
 use MediaWiki\Extension\RobloxAPI\util\RobloxAPIUtil;

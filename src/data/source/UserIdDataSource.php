@@ -57,7 +57,7 @@ class UserIdDataSource extends DataSource {
 	/**
 	 * @inheritDoc
 	 */
-	protected function processRequestOptions( array &$options, array $args ) {
+	public function processRequestOptions( array &$options, array $args ) {
 		$options['method'] = 'POST';
 		$options['postData'] = FormatJson::encode( [ 'usernames' => [ $args[0] ] ] );
 	}

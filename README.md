@@ -11,25 +11,22 @@ See it live: https://dovedale.wiki
 
 ## Installation
 
-1. Download the repository using the following link: [Download ZIP](https://github.com/dovedalewiki/mediawiki-extensions-RobloxAPI/archive/master.zip)
+1. Download the repository using the following
+   link: [Download ZIP](https://github.com/dovedalewiki/mediawiki-extensions-RobloxAPI/archive/master.zip)
 2. Place the files in a directory called `RobloxAPI` in your `extensions/` folder.
 2. Add the following line to the end of your `LocalSettings.php` file:
     ```php
     wfLoadExtension( 'RobloxAPI' );
     ```
 
-Are you on Miraheze? This extension is available on Special:ManageWiki! Search for 'RobloxAPI' and install it with a click.
+Are you on Miraheze? This extension is available on Special:ManageWiki! Search for 'RobloxAPI' and install it with a
+click.
 
 ## Usage
 
 For more information on how to use the extension, see the [USAGE.md](USAGE.md) file.
 
-## Development
+## Contributing
 
-1. install nodejs, npm, and PHP composer
-2. change to the extension's directory
-3. `npm install`
-4. `composer install`
-
-Once set up, running `npm test` and `composer test` will run automated code checks.
+See the [CONTRIBUTING.md](CONTRIBUTING.md) file for information on how to contribute to the project.
 

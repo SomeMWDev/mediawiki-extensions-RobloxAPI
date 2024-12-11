@@ -14,6 +14,9 @@
 	"AutoloadNamespaces": {
 		"MediaWiki\\Extension\\RobloxAPI\\": "src/"
 	},
+	"TestAutoloadNamespaces": {
+		"MediaWiki\\Extension\\RobloxAPI\\Tests\\": "tests/phpunit/unit/"
+	},
 	"config": {
 		"RobloxAPIEnabledDatasources": {
 			"value": [

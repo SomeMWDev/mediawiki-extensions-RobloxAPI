@@ -128,7 +128,7 @@ class RobloxAPIUtil {
 	) {
 		foreach ( $args as $index => $arg ) {
 			$expectedType = $expectedArgs[$index];
-			$allowedArgs = $config->get( 'RobloxAPIAllowedArguments' );
+			$allowedArgs = $config->get( 'RobloxAPIAllowedArguments' ) ?? [];
 			if ( !array_key_exists( $expectedType, $allowedArgs ) ) {
 				continue;
 			}

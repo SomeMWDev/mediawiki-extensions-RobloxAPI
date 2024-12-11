@@ -27,6 +27,7 @@ use MediaWiki\Extension\RobloxAPI\data\cache\EmptyCache;
 use MediaWiki\Extension\RobloxAPI\data\cache\SimpleExpiringCache;
 use MediaWiki\Extension\RobloxAPI\util\RobloxAPIException;
 use MediaWiki\Extension\RobloxAPI\util\RobloxAPIUtil;
+use MediaWiki\Http\HttpRequestFactory;
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 
@@ -51,6 +52,10 @@ abstract class DataSource {
 	 * @var array|string The expected argument types.
 	 */
 	protected array $expectedArgs;
+	/**
+	 * @var ?HttpRequestFactory The HTTP request factory. Can be overridden for testing.
+	 */
+	private ?HttpRequestFactory $httpRequestFactory;
 
 	/**
 	 * Constructs a new data source.
@@ -113,14 +118,16 @@ abstract class DataSource {
 
 		$options = [];
 
-		global $wgRobloxAPIRequestUserAgent;
-		if ( $wgRobloxAPIRequestUserAgent && $wgRobloxAPIRequestUserAgent !== '' ) {
-			$options['userAgent'] = $wgRobloxAPIRequestUserAgent;
+		$userAgent = $this->config->get( 'RobloxAPIRequestUserAgent' );
+		if ( $userAgent && $userAgent !== '' ) {
+			$options['userAgent'] = $userAgent;
 		}
 
 		$this->processRequestOptions( $options, $args );
 
-		$request = MediaWikiServices::getInstance()->getHttpRequestFactory()->create( $endpoint, $options );
+		$this->httpRequestFactory =
+			$this->httpRequestFactory ?? MediaWikiServices::getInstance()->getHttpRequestFactory();
+		$request = $this->httpRequestFactory->create( $endpoint, $options );
 		$request->setHeader( 'Accept', 'application/json' );
 
 		$headers = $this->getAdditionalHeaders( $args );
@@ -182,7 +189,7 @@ abstract class DataSource {
 	 * @param array &$options The options to process.
 	 * @param array $args The arguments used to fetch the data.
 	 */
-	protected function processRequestOptions( array &$options, array $args ) {
+	public function processRequestOptions( array &$options, array $args ) {
 	}
 
 	/**
@@ -214,6 +221,14 @@ abstract class DataSource {
 	 */
 	public function provideParserFunction(): bool {
 		return true;
+	}
+
+	/**
+	 * Sets the HTTP request factory.
+	 * @param HttpRequestFactory $httpRequestFactory The HTTP request factory.
+	 */
+	public function setHttpRequestFactory( HttpRequestFactory $httpRequestFactory ): void {
+		$this->httpRequestFactory = $httpRequestFactory;
 	}
 
 }
